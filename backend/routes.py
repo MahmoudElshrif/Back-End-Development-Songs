@@ -51,3 +51,12 @@ def parse_json(data):
 ######################################################################
 # INSERT CODE HERE
 ######################################################################
+@app.route("/health", methods=["GET"])
+def health():
+	return "", 200
+
+@app.route("/count", methods=["GET"])
+def count():
+    count = len(songs_list)
+    return {"count": count}, 200
+
