@@ -60,3 +60,20 @@ def count():
     count = len(songs_list)
     return {"count": count}, 200
 
+@app.route("/song", methods=["GET"])
+def songs():
+    songs = []
+
+    for i in db.songs.find({}):
+        i["_id"] = str(i["_id"])
+        songs.append(i)
+    return {"songs": songs}, 200
+
+@app.route("/song/<int:id>", methods=["GET"])
+def get_song_by_id(id):
+    song = db.songs.find_one({"id":id})
+
+    if(song != None):
+        song["_id"] = str(song["_id"])
+        return song, 200
+    return {"message": "song with id not found"}, 404
